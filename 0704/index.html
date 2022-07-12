@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 이벤트 실습</title>
+    </head>
+    <body>
+        <ul>
+            <li id="hi">
+                안녕하세요
+            </li>
+            <button id="btn">클릭!</button>
+        </ul>
+        <p>----------------------------------------------------------------------------------------------------------------</p>
+        <input type="text" id="id">
+        <input type="button" id="button" value="아이디 찾기" onclick="clickbtn()">
+        <p id="findId"></p>
+        <p>----------------------------------------------------------------------------------------------------------------</p>
+        <input type="text" id="first"> +
+        <input type="text" id="seccend"> =
+        <input type="text" id="result">
+        <input type="button" id="sumBtn" value="결과">
+        <p>----------------------------------------------------------------------------------------------------------------</p>
+        <span>함수형</span>
+        <input type="text" id="textId">
+        <p id="getTextId"></p>
+        <p>----------------------------------------------------------------------------------------------------------------</p>
+        <button id="colorBtn">색깔 변경</button>
+        <h1 id="backBox" style="background-color: red; width: 300px; height: 200px;" ></h1>
+        <p>----------------------------------------------------------------------------------------------------------------</p>
+        <ul class="top-ul">
+            <li class="top-li">1</li>
+            <li class="top-li">2</li>
+            <li class="top-li">3</li>
+            <li class="top-li">4</li>
+            <li class="top-li">5</li>
+            <li class="top-li">6</li>
+            <li class="top-li">7</li>
+            <li class="top-li">8</li>
+        </ul>
+        
+        <script src="index.js"></script>
+        <script>
+            document.getElementsByTagName('body')
+            document.createElement("p")
+            var idName = document.getElementById("hi")
+            idName.innerHTML = "hi 안녕하세요"
+            console.log(idName)
+
+            function clickbtn(){
+                let getId = document.getElementById("id").value;
+                console.log(getId);
+                document.getElementById("findId").innerHTML = getId
+            }
+        </script>
+    </body>
+</html>

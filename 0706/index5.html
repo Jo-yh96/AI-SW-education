@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let o = {
+        o1: function() {
+            console.log(this);
+        },
+        o2: () => {
+            console.log(this);
+            let o3 = () => {
+                console.log(this);
+            }
+            o3();
+        },
+        o3: function() {
+            console.log(this);
+            let o4 = () =>{
+                console.log(this);
+            }
+            o4();
+        },
+        o4: function() {
+            console.log(this);
+            let o5 = function() {
+                console.log(this);
+            }
+            o5();
+        }
+    }
+
+    o.o1();
+    o.o2();
+    o.o3();
+    o.o4();
+</script>
+</html>
