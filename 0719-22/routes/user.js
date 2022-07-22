@@ -5,7 +5,7 @@ const cryto = require("crypto");
 const { User } = require("../models");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken")
-const jwtConfig = require("./../config/config.js");
+const jwtConfig = require("../config/config.js");
 
 router.post("/signUp",asyncHandler(async (req,res,next)=> {
     const {email, password, name} = req.body;
