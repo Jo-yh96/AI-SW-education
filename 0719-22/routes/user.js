@@ -6,6 +6,7 @@ const { User } = require("../models");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken")
 const jwtConfig = require("../config/config.js");
+const nodeMailer = require("nodemailer")
 
 router.post("/signUp",asyncHandler(async (req,res,next)=> {
     const {email, password, name} = req.body;
@@ -70,14 +71,45 @@ router.post("/login",asyncHandler(async (req,res,next) => {
                 name:checkEmail.name
             })
         }
-    })
-
-
-
-    
+    })    
 }))
 
+router.post("/find/password",asyncHandler(async (req,res,next) => {
+    let {email} = req.body;
+    let user = await User.findOne({email});
+    let myEmail = "cho845k@gmail.com";
 
+    let transporter = nodeMailer.createTransport({
+        service:"gmail",
+        host:"smtp.gmail.com",
+        port:587,
+        secure: false,
+        auth:{
+            user: myEmail,
+            pass:"ldpldmilwdecoxxo"
+        }
+    });
+
+    const randomPassword = randomPw();
+    const hashRandomPassword = passwordHash(randomPassword);
+
+    await User.findOneAndUpdate({shortId : user.shortid}, {
+        password: hashRandomPassword
+    })
+
+    let info = await transporter.sendMail({
+        from:`"Elice" <${myEmail}>`,
+        to: user.email,
+        subject: "Rest Password By Elice",
+        html:`<b>초기화 비밀번호: ${randomPassword}</b>`
+    });
+
+    res.json({result : "이메일을 전송하였습니다."})
+}));
+
+const randomPw = () =>{
+    return Math.floor(Math.random()*(10**8)).toString().padStart('0',0);
+}
 
 
 

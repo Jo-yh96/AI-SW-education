@@ -4,6 +4,7 @@ const postsRouter = require("./routes/posts")
 const userRouter = require("./routes/user")
 const cors = require("cors")
 const bodyParser = require("body-parser")
+const authMiddleware = require("./utils/authMiddleware")
 
 const app = express();
 
@@ -20,7 +21,7 @@ mongoose.connection.on("error", (err) => {
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use("/posts",postsRouter);
+app.use("/posts",authMiddleware,postsRouter);
 app.use("/user",userRouter);
 
 app.listen(8080, ()=>{

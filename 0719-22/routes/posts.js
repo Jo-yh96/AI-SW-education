@@ -1,17 +1,19 @@
 const {Router} = require("express");
-const {Post} = require("../models");
+const {Post, User} = require("./../models");
 const asyncHandler = require("../utils/async-handler")
 
 const router = Router();
 
 
 router.post("/", async (req,res,next) => {
-    const {title, content} = req.body;
+    const {title, content, email} = req.body;
     // console.log(req.body);
     try {
+        const authData = await User.findOne({email})
         await Post.create({
             title,
-            content
+            content,
+            auth: authData
         });
         res.json({
             result:"저장이 완료되었습니다."
@@ -22,7 +24,7 @@ router.post("/", async (req,res,next) => {
 })
 
 router.get("/",async (req,res,next) => {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).populate("author");
     res.json(posts);
 });
 

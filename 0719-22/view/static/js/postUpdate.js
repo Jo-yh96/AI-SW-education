@@ -36,6 +36,9 @@ const updatePost = () => {
         type: "POST",
         url: `http://localhost:8080/posts/${shortId}/update`,
         data: formData,
+        headers: {
+            accessToken:$.cookie("accessToken")
+        },
         success:(res) => {
             alert(res.result);
             location.href="list.html";
