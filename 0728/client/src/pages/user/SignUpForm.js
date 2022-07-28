@@ -1,24 +1,23 @@
-const SignUpForm = () => {
+const SignUpForm = ({signUpData,onChangeSignUpData}) => {
     return (
         <div className="album">
             <div className="container">
                 <form>
                     <div className="mb-3">
-                        <label for="email1" className="form-label">Email address</label>
-                        <input type="email" className="form-control" name="email" id="email1" aria-describedby="emailHelp" />
-                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                        <label htmlFor="email" className="form-label">Email address</label>
+                        <input type="email" value={signUpData.email} onChange={onChangeSignUpData} className="form-control" name="email" id="email" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
-                        <label for="password1" className="form-label">Password</label>
-                        <input type="password" className="form-control" name="password" id="password1"/>
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" value={signUpData.password} onChange={onChangeSignUpData} className="form-control" name="password" id="password"/>
                     </div>
                     <div className="mb-3">
-                        <label for="rePassword" className="form-label">Password</label>
-                        <input type="password" className="form-control" name="rePassowrd" id="rePassword1"/>
+                        <label htmlFor="rePassword" className="form-label">rePassword</label>
+                        <input type="password" value={signUpData.rePassword} onChange={onChangeSignUpData} className="form-control" name="rePassword" id="rePassword"/>
                     </div>
                     <div className="mb-3">
-                        <label for="name" className="form-label">Password</label>
-                        <input type="password" className="form-control" name="name" id="name"/>
+                        <label htmlFor="name" className="form-label">Password</label>
+                        <input type="text" value={signUpData.name} onChange={onChangeSignUpData} className="form-control" name="name" id="name"/>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
