@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import kakaoLoginButtonImg from "./img/kakao_login_large_narrow.png"
 
 const Header = () => {
 
@@ -11,7 +12,14 @@ const Header = () => {
         if(cookies.userData === undefined){
             navigate("/");
         }
-    },[cookies, navigate])
+    },[cookies])
+    //-------------kakao oauth-------------
+    const REST_API_KEY = "bd10390cb7365d5fc49e2a00222efd65";
+    const REDIRECT_URI = "http://localhost:3000/ouath/kakao/callback";
+
+    const KAKAO_OAUTH_URI =`https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+
 
     return (
     <header>
@@ -42,6 +50,12 @@ const Header = () => {
                                 : 
                                 (
                                     <ul className="list-unstyled">
+                                        <li>
+                                            <a href={KAKAO_OAUTH_URI}>
+                                                {/* <img src="/img/kakao_login_large_narrow.png" />  public/img 폴더에서 이미지를 가져옴 */}
+                                                <img src={kakaoLoginButtonImg} width="60%"/> {/* src/img 폴더에서 이미지를 가져옴 */}
+                                            </a>
+                                        </li>
                                         <li><button className="btn btn-primary" onClick={() => navigate("/")}>Login</button></li>
                                     </ul>)
                         }
@@ -51,7 +65,7 @@ const Header = () => {
         </div>
         <div className="navbar navbar-dark bg-dark shadow-sm">
             <div className="container">
-                <a href="/" className="navbar-brand d-flex align-items-center">
+                <a href="/review/list" className="navbar-brand d-flex align-items-center">
                     <strong>Movie Review</strong>
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">

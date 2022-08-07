@@ -3,9 +3,10 @@ const shortId = require("./type/shortId")
 
 module.exports = new Schema({
     shortId,
+    img: String,
     title: String,
     content:String,
-    auth:{
+    author:{
         type:Schema.Types.ObjectId,
         ref:"User",
         require: true

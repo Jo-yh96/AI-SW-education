@@ -1,16 +1,42 @@
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import url from "./../../data/port.json"
+
 const Detail = () =>{
+
+    const params = useParams();
+    const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+    const [detailData, setDetailData] = useState({});
+
+    const findDatailData = async () =>{
+        return await axios.get(url.url + `/posts/${params.id}/find`, {
+            headers: {
+                accessToken: cookies.userData.accessToken
+            }
+        })
+    }
+
+    useEffect(()=> {
+        console.log(params.id)
+        findDatailData().then(res => {
+            // console.log(res.data)
+            setDetailData(res.data)
+        })
+    },[])
     return (
         <div className="album">
             <div className="container">
                 <div className="card mb-3">
                     <div  className="card-img-top" style={{textAlign:"center"}}>
-                    <img src="https://search.pstatic.net/common?type=o&size=174x246&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20220720_283%2F1658284839003UzxoT_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" alt="..." />
+                    <img src={detailData.img} alt="movie" />
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">Movie Img</h5>
                         <p className="card-text">Img Example</p>
                         <p className="card-text">
-                            <small className="text-muted">url</small>
+                            <small className="text-muted">{detailData.img}</small>
                         </p>
                     </div>
                 </div>
@@ -18,7 +44,7 @@ const Detail = () =>{
                     <label htmlFor="title" className="form-label">Title</label>
                     <div className="card">
                         <p className="card-body">
-                            제목입니다.
+                            {detailData.title}
                         </p>
                     </div>
                 </div>
@@ -26,11 +52,13 @@ const Detail = () =>{
                     <label htmlFor="content" className="form-label">Content</label>
                     <div className="card">
                         <p className="card-body">
-                            내용입니다.
+                            {detailData.content}
                         </p>
                     </div>
                 </div>
-                <button type="button" className="btn btn-outline-danger">뒤로가기</button>
+                <button type="button" onClick={() => {
+                    window.history.back()
+                }} className="btn btn-outline-danger">뒤로가기</button>
             </div>
         </div>  
     );

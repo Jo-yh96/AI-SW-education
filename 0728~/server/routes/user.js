@@ -84,7 +84,7 @@ router.post("/find/password",asyncHandler(async (req,res,next) => {
         host:"smtp.gmail.com",
         port:587,
         secure: false,
-        auth:{
+        author:{
             user: myEmail,
             pass:"ldpldmilwdecoxxo"
         }
